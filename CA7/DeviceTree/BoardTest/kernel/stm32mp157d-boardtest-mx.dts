@@ -97,7 +97,7 @@
 
 		led-blue{
 			label = "heartbeat";
-			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioh 7 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "heartbeat";
 			default-state = "off";
 		};
