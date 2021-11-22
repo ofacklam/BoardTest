@@ -11,7 +11,7 @@ RUN apt-get install -y libncurses5 libncurses5-dev libncursesw5-dev libssl-dev l
 RUN apt-get install -y coreutils bsdmainutils sed curl bc lrzsz corkscrew cvs nfs-common nfs-kernel-server libarchive-zip-perl dos2unix texi2html libxml2-utils
 
 # install the SDK
-ADD st-image-weston-openstlinux-weston-stm32mp1-x86_64-toolchain-3.1-openstlinux-5.10-dunfell-mp1-21-03-31.sh ./sdk_installer.sh
+ADD st-image-*-toolchain-*.sh ./sdk_installer.sh
 RUN chmod +x sdk_installer.sh
 RUN mkdir sdk
 RUN ./sdk_installer.sh -d sdk
