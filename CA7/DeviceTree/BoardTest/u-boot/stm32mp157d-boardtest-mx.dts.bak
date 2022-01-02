@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause) */
 /*
- * Copyright (C) STMicroelectronics 2021 - All Rights Reserved
+ * Copyright (C) STMicroelectronics 2022 - All Rights Reserved
  * Author: STM32CubeMX code generation for STMicroelectronics.
  */
 
@@ -97,7 +97,7 @@
 
 		led-blue{
 			label = "heartbeat";
-			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpioh 7 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "heartbeat";
 			default-state = "off";
 		};
@@ -350,6 +350,20 @@
 		};
 	};
 
+	m4_fdcan1_pins_mx: m4_fdcan1_mx-0 {
+		pins {
+			pinmux = <STM32_PINMUX('A', 11, RSVD)>, /* FDCAN1_RX */
+					 <STM32_PINMUX('D', 1, RSVD)>; /* FDCAN1_TX */
+		};
+	};
+
+	m4_fdcan2_pins_mx: m4_fdcan2_mx-0 {
+		pins {
+			pinmux = <STM32_PINMUX('B', 5, RSVD)>, /* FDCAN2_RX */
+					 <STM32_PINMUX('B', 13, RSVD)>; /* FDCAN2_TX */
+		};
+	};
+
 	sai2a_pins_mx: sai2a_mx-0 {
 		pins {
 			pinmux = <STM32_PINMUX('E', 0, AF10)>, /* SAI2_MCLK_A */
@@ -519,6 +533,13 @@
 	interrupts = <68 1>;
 	wakeup-source;
 	/* USER CODE END m4_rproc */
+
+	m4_system_resources{
+		status = "okay";
+
+		/* USER CODE BEGIN m4_system_resources */
+		/* USER CODE END m4_system_resources */
+	};
 };
 
 &adc{
@@ -969,6 +990,24 @@
 		};
 	};
 	/* USER CODE END ltdc */
+};
+
+&m4_m_can1{
+	pinctrl-names = "default";
+	pinctrl-0 = <&m4_fdcan1_pins_mx>;
+	status = "okay";
+
+	/* USER CODE BEGIN m4_m_can1 */
+	/* USER CODE END m4_m_can1 */
+};
+
+&m4_m_can2{
+	pinctrl-names = "default";
+	pinctrl-0 = <&m4_fdcan2_pins_mx>;
+	status = "okay";
+
+	/* USER CODE BEGIN m4_m_can2 */
+	/* USER CODE END m4_m_can2 */
 };
 
 &mdma1{

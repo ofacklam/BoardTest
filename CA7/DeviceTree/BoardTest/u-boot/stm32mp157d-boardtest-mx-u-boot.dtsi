@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause*/
 /*
- * Copyright (C) 2021, STMicroelectronics - All Rights Reserved
+ * Copyright (C) 2022, STMicroelectronics - All Rights Reserved
  * Author: STM32CubeMX code generation for STMicroelectronics.
  */
 
@@ -117,7 +117,7 @@
 		CLK_AXI_PLL2P
 		CLK_MCU_PLL3P
 		CLK_PLL12_HSE
-		CLK_PLL3_HSE
+		CLK_PLL3_HSI
 		CLK_PLL4_HSE
 		CLK_RTC_LSE
 		CLK_MCO1_DISABLED
@@ -159,6 +159,7 @@
 		CLK_UART6_DISABLED
 		CLK_UART78_DISABLED
 		CLK_SPDIF_DISABLED
+		CLK_FDCAN_PLL3Q
 		CLK_SAI1_DISABLED
 		CLK_SAI2_PLL3Q
 		CLK_SAI3_DISABLED
@@ -178,8 +179,7 @@
 	pll3:st,pll@2 {
 		compatible = "st,stm32mp1-pll";
 		reg = <2>;
-		cfg = < 1 33 1 16 36 PQR(1,1,0) >;
-		frac = < 0x1a04 >;
+		cfg = < 3 25 1 12 36 PQR(1,1,0) >;
 		u-boot,dm-pre-reloc;
 	};
 	pll4:st,pll@3 {
