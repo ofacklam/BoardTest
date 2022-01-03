@@ -6,6 +6,9 @@
  */
 
 #include "can/can.h"
+#include "debug/console.h"
+
+#include <cmsis_os2.h>
 
 void testThread(void *argument) {
 	uint8_t counter = 0;
@@ -16,6 +19,7 @@ void testThread(void *argument) {
 			frame.data[i] = counter + i;
 		}
 
+		consoleLog("Sending...\n");
 		canPushToOutQ(&frame);
 		canPushToOutQ(&frame);
 
@@ -29,7 +33,14 @@ void createQueues() {
 }
 
 void createThreads() {
-	osThreadNew(canTransmitTask, NULL, NULL);
-	osThreadNew(testThread, NULL, NULL);
+	osThreadAttr_t canAttr = {
+			.name = "CAN transmit task"
+	};
+	osThreadNew(canTransmitTask, NULL, &canAttr);
+
+	osThreadAttr_t testAttr = {
+			.name = "Test task"
+	};
+	osThreadNew(testThread, NULL, &testAttr);
 }
 

@@ -11,6 +11,8 @@
 
 #include "can/can.h"
 #include "can/logic/comInterface.hpp"
+
+#include "debug/console.h"
 #include "stm32mp1xx_hal.h"
 
 osMessageQueueId_t outQ;
@@ -44,7 +46,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			frame.dataID = rxHeader.Identifier >> 3;
 			uint8_t source = rxHeader.Identifier & 0x07;
 
-			printf("[BOARD %d] Received DATA_ID %d: %2x %2x %2x %2x %2x %2x %2x %2x\n", source, frame.dataID,
+			consoleLog("[BOARD %d] Received DATA_ID %d: %2x %2x %2x %2x %2x %2x %2x %2x\n", source, frame.dataID,
 					frame.data[0], frame.data[1], frame.data[2], frame.data[3],
 					frame.data[4], frame.data[5], frame.data[6], frame.data[7]);
 		}
@@ -99,7 +101,7 @@ void canTransmitTask(void *argument) {
 	while(true) {
 		// retrieve next frame
 		ComFrame frame;
-		osMessageQueueGet(outQ, &frame, NULL, 0U);
+		osMessageQueueGet(outQ, &frame, NULL, osWaitForever);
 
 		// check free level
 		uint32_t freeLevel = HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan1);
