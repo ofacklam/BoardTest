@@ -353,14 +353,21 @@
 	m4_fdcan1_pins_mx: m4_fdcan1_mx-0 {
 		pins {
 			pinmux = <STM32_PINMUX('A', 11, RSVD)>, /* FDCAN1_RX */
-					 <STM32_PINMUX('D', 1, RSVD)>; /* FDCAN1_TX */
+					 <STM32_PINMUX('A', 12, RSVD)>; /* FDCAN1_TX */
 		};
 	};
 
 	m4_fdcan2_pins_mx: m4_fdcan2_mx-0 {
 		pins {
-			pinmux = <STM32_PINMUX('B', 5, RSVD)>, /* FDCAN2_RX */
+			pinmux = <STM32_PINMUX('B', 12, RSVD)>, /* FDCAN2_RX */
 					 <STM32_PINMUX('B', 13, RSVD)>; /* FDCAN2_TX */
+		};
+	};
+
+	m4_uart7_pins_mx: m4_uart7_mx-0 {
+		pins {
+			pinmux = <STM32_PINMUX('F', 6, RSVD)>, /* UART7_RX */
+					 <STM32_PINMUX('F', 7, RSVD)>; /* UART7_TX */
 		};
 	};
 
@@ -1010,6 +1017,15 @@
 	/* USER CODE END m4_m_can2 */
 };
 
+&m4_uart7{
+	pinctrl-names = "default";
+	pinctrl-0 = <&m4_uart7_pins_mx>;
+	status = "okay";
+
+	/* USER CODE BEGIN m4_uart7 */
+	/* USER CODE END m4_uart7 */
+};
+
 &mdma1{
 	status = "okay";
 
@@ -1134,8 +1150,6 @@
 	status = "okay";
 
 	/* USER CODE BEGIN uart4 */
-	/delete-property/ dmas;
-	/delete-property/ dma-names;
 	/* USER CODE END uart4 */
 };
 
