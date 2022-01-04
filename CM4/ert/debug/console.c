@@ -25,7 +25,7 @@ void consoleLog(const char *format, ...) {
 	vsnprintf(buf, sizeof buf, format, args);
 
 	// send to UART7
-	HAL_UART_Transmit(&huart7, buf, sizeof buf, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart7, (uint8_t*) buf, sizeof buf, HAL_MAX_DELAY);
 
 	va_end(args);
 }

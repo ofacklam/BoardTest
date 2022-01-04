@@ -5,7 +5,8 @@
  *      Author: ofacklam
  */
 
-#include "can/can.h"
+#include "can/canTasks.h"
+#include "can/canInterface.h"
 #include "debug/console.h"
 
 #include <cmsis_os2.h>
@@ -34,7 +35,8 @@ void createQueues() {
 
 void createThreads() {
 	osThreadAttr_t canAttr = {
-			.name = "CAN transmit task"
+			.name = "CAN transmit task",
+			.priority = osPriorityHigh,
 	};
 	osThreadNew(canTransmitTask, NULL, &canAttr);
 
