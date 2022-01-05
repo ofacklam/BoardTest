@@ -39,11 +39,19 @@ REGISTER_OD_FIELD(13U, STATUS, status_t)
  * Interface
  * !! DO NOT CALL FROM ISR !!
  */
-template<uint8_t DATAID>
-void readOD(typename DataIdToType<DATAID>::type *data);
+void __unsafe_readOD(uint8_t dataID, uint8_t *data);
 
 template<uint8_t DATAID>
-void writeOD(typename DataIdToType<DATAID>::type *data);
+void readOD(typename DataIdToType<DATAID>::type *data) {
+	__unsafe_readOD(DATAID, (uint8_t*) data);
+}
+
+void __unsafe_writeOD(uint8_t dataOD, uint8_t *data);
+
+template<uint8_t DATAID>
+void writeOD(typename DataIdToType<DATAID>::type *data) {
+	__unsafe_writeOD(DATAID, (uint8_t*) data);
+}
 
 
 #endif /* OD_DICTIONARY_HPP_ */

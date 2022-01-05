@@ -52,22 +52,20 @@ static OdFields dict;
 /**
  * Read/write interface
  */
-template<uint8_t DATAID>
-void readOD(typename DataIdToType<DATAID>::type *data) {
+void __unsafe_readOD(uint8_t dataID, uint8_t *data) {
 	int32_t lock = osKernelLock();
 
-	ComFrame &f = dict[DATAID];
-	std::memcpy((uint8_t*) data, f.data, f.size);
+	ComFrame &f = dict[dataID];
+	std::memcpy(data, f.data, f.size);
 
 	osKernelRestoreLock(lock);
 }
 
-template<uint8_t DATAID>
-void writeOD(typename DataIdToType<DATAID>::type *data) {
+void __unsafe_writeOD(uint8_t dataID, uint8_t *data) {
 	ComFrame toSend;
-	toSend.dataID = dict[DATAID].dataID;
-	toSend.size = dict[DATAID].size;
-	std::memcpy(toSend.data, (uint8_t*) data, toSend.size);
+	toSend.dataID = dict[dataID].dataID;
+	toSend.size = dict[dataID].size;
+	std::memcpy(toSend.data, data, toSend.size);
 
 	canPushToOutQ(&toSend);
 }
