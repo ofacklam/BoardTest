@@ -7,6 +7,7 @@
 
 #include "can/canTasks.h"
 #include "can/canInterface.h"
+#include "od/odTasks.h"
 #include "debug/console.h"
 
 #include <cmsis_os2.h>
@@ -44,5 +45,11 @@ void createThreads() {
 			.name = "Test task"
 	};
 	osThreadNew(testThread, NULL, &testAttr);
+
+	osThreadAttr_t odAttr = {
+			.name = "OD update task",
+			.priority = osPriorityHigh,
+	};
+	osThreadNew(odUpdateTask, NULL, &odAttr);
 }
 

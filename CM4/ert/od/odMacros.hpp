@@ -25,8 +25,8 @@ template<uint8_t DATAID> struct DataIdToType;
 /**
  * Macro for Object Dictionary initialization
  */
-#define ALLOCATE_OD_FIELD(idNum, typeClass) \
-	[idNum] = { .dataID = idNum, .size = sizeof(typeClass), }
+#define ALLOCATE_OD_FIELD(idNum) \
+	fields[idNum] = { idNum, sizeof(typename DataIdToType<idNum>::type), {} };
 
 
 #endif /* OD_ODMACROS_HPP_ */
