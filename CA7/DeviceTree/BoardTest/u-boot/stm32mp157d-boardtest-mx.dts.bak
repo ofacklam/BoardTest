@@ -353,21 +353,21 @@
 	m4_fdcan1_pins_mx: m4_fdcan1_mx-0 {
 		pins {
 			pinmux = <STM32_PINMUX('A', 11, RSVD)>, /* FDCAN1_RX */
-					 <STM32_PINMUX('D', 1, RSVD)>; /* FDCAN1_TX */
+					 <STM32_PINMUX('A', 12, RSVD)>; /* FDCAN1_TX */
 		};
 	};
 
 	m4_fdcan2_pins_mx: m4_fdcan2_mx-0 {
 		pins {
-			pinmux = <STM32_PINMUX('B', 5, RSVD)>, /* FDCAN2_RX */
+			pinmux = <STM32_PINMUX('B', 12, RSVD)>, /* FDCAN2_RX */
 					 <STM32_PINMUX('B', 13, RSVD)>; /* FDCAN2_TX */
 		};
 	};
 
-	m4_uart4_pins_mx: m4_uart4_mx-0 {
+	m4_uart7_pins_mx: m4_uart7_mx-0 {
 		pins {
-			pinmux = <STM32_PINMUX('B', 2, RSVD)>, /* UART4_RX */
-					 <STM32_PINMUX('G', 11, RSVD)>; /* UART4_TX */
+			pinmux = <STM32_PINMUX('F', 6, RSVD)>, /* UART7_RX */
+					 <STM32_PINMUX('F', 7, RSVD)>; /* UART7_TX */
 		};
 	};
 
@@ -467,6 +467,31 @@
 					 <STM32_PINMUX('C', 11, ANALOG)>, /* SDMMC1_D3 */
 					 <STM32_PINMUX('C', 12, ANALOG)>, /* SDMMC1_CK */
 					 <STM32_PINMUX('D', 2, ANALOG)>; /* SDMMC1_CMD */
+		};
+	};
+
+	uart4_pins_mx: uart4_mx-0 {
+		u-boot,dm-pre-reloc;
+		pins1 {
+			u-boot,dm-pre-reloc;
+			pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
+			bias-disable;
+		};
+		pins2 {
+			u-boot,dm-pre-reloc;
+			pinmux = <STM32_PINMUX('G', 11, AF6)>; /* UART4_TX */
+			bias-disable;
+			drive-push-pull;
+			slew-rate = <0>;
+		};
+	};
+
+	uart4_sleep_pins_mx: uart4_sleep_mx-0 {
+		u-boot,dm-pre-reloc;
+		pins {
+			u-boot,dm-pre-reloc;
+			pinmux = <STM32_PINMUX('B', 2, ANALOG)>, /* UART4_RX */
+					 <STM32_PINMUX('G', 11, ANALOG)>; /* UART4_TX */
 		};
 	};
 
@@ -992,13 +1017,13 @@
 	/* USER CODE END m4_m_can2 */
 };
 
-&m4_uart4{
+&m4_uart7{
 	pinctrl-names = "default";
-	pinctrl-0 = <&m4_uart4_pins_mx>;
+	pinctrl-0 = <&m4_uart7_pins_mx>;
 	status = "okay";
 
-	/* USER CODE BEGIN m4_uart4 */
-	/* USER CODE END m4_uart4 */
+	/* USER CODE BEGIN m4_uart7 */
+	/* USER CODE END m4_uart7 */
 };
 
 &mdma1{
@@ -1115,6 +1140,17 @@
 
 	/* USER CODE BEGIN tamp */
 	/* USER CODE END tamp */
+};
+
+&uart4{
+	u-boot,dm-pre-reloc;
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart4_pins_mx>;
+	pinctrl-1 = <&uart4_sleep_pins_mx>;
+	status = "okay";
+
+	/* USER CODE BEGIN uart4 */
+	/* USER CODE END uart4 */
 };
 
 &usbh_ehci{
