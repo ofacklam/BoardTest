@@ -47,6 +47,9 @@ void HAL_FDCAN_ErrorStatusCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t ErrorSt
 CanCore::CanCore(FDCAN_HandleTypeDef *phfdcan) : phfdcan(phfdcan) {
 	// Peripheral, clocks & baud rate already initialized
 
+	// Register CAN core globally
+	cores[nbCanCores++] = this;
+
 	// Configure RX behavior
 	HAL_FDCAN_ConfigGlobalFilter(phfdcan,
 			FDCAN_ACCEPT_IN_RX_FIFO0,
@@ -65,9 +68,6 @@ CanCore::CanCore(FDCAN_HandleTypeDef *phfdcan) : phfdcan(phfdcan) {
 			| FDCAN_IT_BUS_OFF;
 	uint32_t allBuffers = 0xFFFFFFFF;
 	HAL_FDCAN_ActivateNotification(phfdcan, interrupts, allBuffers);
-
-	// Register CAN core globally
-	cores[nbCanCores++] = this;
 
 	// Start FDCAN
 	HAL_FDCAN_Start(phfdcan);

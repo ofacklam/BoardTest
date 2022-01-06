@@ -15,7 +15,7 @@ extern "C" {
 
 #include <stdint.h>
 
-#define CAN_MSGQ_SIZE 32
+#define CAN_MSGQ_SIZE 16
 #define CAN_FRAME_MAX_SIZE 64
 
 typedef struct {
