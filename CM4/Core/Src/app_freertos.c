@@ -45,13 +45,32 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+volatile unsigned long runTimeCounter;
+extern TIM_HandleTypeDef htim2;
 /* USER CODE END Variables */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
+
+/* Hook prototypes */
+void configureTimerForRunTimeStats(void);
+unsigned long getRunTimeCounterValue(void);
+
+/* USER CODE BEGIN 1 */
+/* Functions needed when configGENERATE_RUN_TIME_STATS is on */
+__weak void configureTimerForRunTimeStats(void)
+{
+	runTimeCounter = 0;
+	HAL_TIM_Base_Start_IT(&htim2);
+}
+
+__weak unsigned long getRunTimeCounterValue(void)
+{
+return runTimeCounter;
+}
+/* USER CODE END 1 */
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

@@ -25,7 +25,8 @@ void createThreads() {
 	osThreadNew(canTransmitTask, NULL, &canAttr);
 
 	osThreadAttr_t testAttr = {
-			.name = "Test task"
+			.name = "Test task",
+			.stack_size = 1024,
 	};
 	osThreadNew(testThread, NULL, &testAttr);
 

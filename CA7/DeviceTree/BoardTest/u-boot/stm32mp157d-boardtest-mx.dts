@@ -1017,6 +1017,13 @@
 	/* USER CODE END m4_m_can2 */
 };
 
+&m4_timers2{
+	status = "okay";
+
+	/* USER CODE BEGIN m4_timers2 */
+	/* USER CODE END m4_timers2 */
+};
+
 &m4_uart7{
 	pinctrl-names = "default";
 	pinctrl-0 = <&m4_uart7_pins_mx>;
